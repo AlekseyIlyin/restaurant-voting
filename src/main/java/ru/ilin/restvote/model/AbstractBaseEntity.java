@@ -1,5 +1,6 @@
 package ru.ilin.restvote.model;
 
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public abstract class AbstractBaseEntity implements Persistable<Integer> {
 
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    //    @Column(name = "id", unique = true, nullable = false, columnDefinition = "integer default nextval('global_seq')")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
@@ -37,12 +39,14 @@ public abstract class AbstractBaseEntity implements Persistable<Integer> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractBaseEntity)) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
         AbstractBaseEntity that = (AbstractBaseEntity) o;
-
-        return id != null ? id.equals(that.id) : that.id == null;
+        return id != null && id.equals(that.id);
     }
 
     @Override

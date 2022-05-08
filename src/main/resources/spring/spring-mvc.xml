@@ -4,11 +4,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean class="ru.ilin.restvote.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+
     <mvc:default-servlet-handler/>
 
-    <context:component-scan base-package="ru.ilin.restvote.**.controller"/>
+    <context:component-scan base-package="ru.ilin.restvote.**.web"/>
 
-<!--
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -24,6 +25,14 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
--->
+
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="formatters">
+            <set>
+                <bean class="ru.ilin.restvote.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="ru.ilin.restvote.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+            </set>
+        </property>
+    </bean>
 
 </beans>
