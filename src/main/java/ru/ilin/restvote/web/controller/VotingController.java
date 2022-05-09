@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.service.VotingService;
 import ru.ilin.restvote.to.VotingResult;
-import ru.ilin.restvote.urils.SecurityUtil;
+import ru.ilin.restvote.utils.SecurityUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package ru.ilin.restvote.urils;
+package ru.ilin.restvote.utils;
 
 import ru.ilin.restvote.model.Restaurant;
 import ru.ilin.restvote.to.RestaurantTo;

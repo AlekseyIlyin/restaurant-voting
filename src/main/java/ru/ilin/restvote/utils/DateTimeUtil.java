@@ -1,4 +1,4 @@
-package ru.ilin.restvote.urils;
+package ru.ilin.restvote.utils;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;

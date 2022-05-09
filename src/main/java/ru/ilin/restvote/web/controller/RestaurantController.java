@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.Restaurant;
 import ru.ilin.restvote.service.RestaurantService;
 import ru.ilin.restvote.to.RestaurantTo;
-import ru.ilin.restvote.urils.RestaurantUtil;
-import ru.ilin.restvote.urils.SecurityUtil;
+import ru.ilin.restvote.utils.RestaurantUtil;
+import ru.ilin.restvote.utils.SecurityUtil;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class RestaurantController {
 
     @GetMapping
     public List<Restaurant> getAll() {
-        log.info("get restaurants for user {}", SecurityUtil.authUserId());
+        log.info("get all restaurants with user {}", SecurityUtil.authUserId());
         return service.getAll();
     }
 
@@ -35,7 +35,7 @@ public class RestaurantController {
     public Restaurant get(
             @PathVariable int id
     ) {
-        log.info("get restaurant by id {}", id);
+        log.info("get restaurant by id {} with user {}", id, SecurityUtil.authUserId());
         return service.getById(id);
     }
 
@@ -56,16 +56,16 @@ public class RestaurantController {
     public void delete(
             @PathVariable int id
     ) {
-        log.info("delete restaurant with id {} with user id {}", id, SecurityUtil.authUserId());
+        log.info("delete restaurant with id {} with user {}", id, SecurityUtil.authUserId());
     }
 
     public void create(RestaurantTo restaurantTo) {
-        log.info("create restaurant {} with user id {}", restaurantTo, SecurityUtil.authUserId());
+        log.info("create restaurant {} with user {}", restaurantTo, SecurityUtil.authUserId());
         service.save(RestaurantUtil.createNewFromTo(restaurantTo));
     }
 
     public void update(RestaurantTo restaurantTo, int id) {
-        log.info("update restaurant {} with id={} with user id {}", restaurantTo, id, SecurityUtil.authUserId());
+        log.info("update restaurant {} with id {} with user {}", restaurantTo, id, SecurityUtil.authUserId());
         service.save(RestaurantUtil.updateFromTo(new Restaurant(), restaurantTo));
     }
 }

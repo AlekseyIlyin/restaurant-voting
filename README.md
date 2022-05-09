@@ -50,3 +50,9 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 ### 15.05.22: Дедлайн на сдачу [выпускного проекта](https://github.com/JavaOPs/topjava/blob/master/graduation.md)
 ### 25.05.22: Получение дипломов для участников [Дипломной программы](https://javaops.ru/view/register/diploma)
+
+### Examples of calling the service:
+- Получить всех пользователей: curl -u admin@gmail.com:admin http://localhost:8080/rest/admin/users
+- Получить все рестораны: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant
+- Получить ресторан с id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
+- Получить меню по всем ресторанам на дату (если дата не указана - то на текущую): curl -u user@yandex.ru:password http://localhost:8080/rest/menu

@@ -23,13 +23,13 @@ public class Vote extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    @Column(name = "voting")
-    private LocalDateTime voting;
+    @Column(name = "vote_datetime")
+    private LocalDateTime voteDateTime;
 
-    public Vote(Restaurant restaurant, User user, LocalDateTime dateTime) {
+    public Vote(Restaurant restaurant, User user, LocalDateTime voteDateTime) {
         this.restaurant = restaurant;
         this.user = user;
-        this.voting = dateTime;
+        this.voteDateTime = voteDateTime;
     }
 
     public Vote() {

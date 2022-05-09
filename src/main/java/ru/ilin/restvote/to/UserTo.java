@@ -1,34 +1,48 @@
 package ru.ilin.restvote.to;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import ru.ilin.restvote.model.Role;
+import ru.ilin.restvote.HasIdAndEmail;
+import ru.ilin.restvote.utils.validation.NoHtml;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class UserTo extends BaseTo implements Serializable {
-
+public class UserTo extends BaseTo implements HasIdAndEmail, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @NotBlank
+    @Size(min = 2, max = 100)
+    @NoHtml
     private String name;
 
+    @Email
     @NotBlank
-    // https://stackoverflow.com/a/12505165/548473
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    @Size(max = 100)
+    @NoHtml // https://stackoverflow.com/questions/17480809
+    private String email;
 
     @NotBlank
-    private Role role;
+    @Size(min = 5, max = 32)
+    private String password;
 
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String password) {
-        this.id = id;
+    public UserTo(Integer id, String name, String email, String password) {
+        super(id);
         this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -40,29 +54,21 @@ public class UserTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public String toString() {
         return "UserTo{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", id=" + id +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

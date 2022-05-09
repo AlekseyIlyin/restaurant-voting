@@ -12,6 +12,6 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface VotingRepository extends JpaRepository<Vote, Integer> {
-    @Query("SELECT new ru.ilin.restvote.to.VotingResult(u.restaurant.id, COUNT(u.restaurant.id)) FROM Vote u WHERE u.voting>=:startDateTime AND u.voting<:endDateTime GROUP BY u.restaurant.id")
+    @Query("SELECT new ru.ilin.restvote.to.VotingResult(u.restaurant.id, COUNT(u.restaurant.id)) FROM Vote u WHERE u.voteDateTime>=:startDateTime AND u.voteDateTime<:endDateTime GROUP BY u.restaurant.id")
     List<VotingResult> getRateVotingByDate(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.Menu;
 import ru.ilin.restvote.service.MenuService;
 import ru.ilin.restvote.to.MenuTo;
-import ru.ilin.restvote.urils.MenuUtil;
-import ru.ilin.restvote.urils.SecurityUtil;
+import ru.ilin.restvote.utils.MenuUtil;
+import ru.ilin.restvote.utils.SecurityUtil;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,11 +27,11 @@ public class MenuController {
         this.service = service;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<MenuTo> getAllByDate(
             @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
-        log.info("get all menu for date {} with user id {}", date, SecurityUtil.authUserId());
+        log.info("get all menu for date {} with user id {}", date == null ? LocalDate.now() : date, SecurityUtil.authUserId());
         return service.getAllByDate(date == null ? LocalDate.now() : date).stream().map(MenuUtil::asTo).collect(Collectors.toList());
     }
 

@@ -1,36 +1,46 @@
+DELETE FROM user_roles;
 DELETE FROM voting;
 DELETE FROM dishes;
 DELETE FROM menu;
 DELETE FROM restaurants;
 DELETE FROM users;
 
-INSERT INTO users (name, password, role)
-VALUES
-    ('Admin', '1', 'ADMIN'),
-    ('User1', '1', 'USER'),
-    ('User2', '1', 'USER');
+INSERT INTO users (name, email, password)
+VALUES ('User', 'user@yandex.ru', '{noop}password'),
+       ('Admin', 'admin@gmail.com', '{noop}admin');
+
+INSERT INTO user_roles (role, user_id)
+VALUES ('USER', 100000),
+       ('ADMIN', 100001),
+       ('USER', 100001);
 
 INSERT INTO restaurants (name)
 VALUES
     ('Astoria'),
-    ('Kosmos');
+    ('Kosmos'),
+    ('Russian food (Русская кухня)');
 
-INSERT INTO menu (rest_id, date)
+INSERT INTO menu (rest_id)
 VALUES
-    (100003, '2022-04-15'),
-    (100004, '2022-04-15');
+    (100003),
+    (100004);
 
 INSERT INTO dishes (menu_id, name, price)
 VALUES
-    (100005, 'fish', 12.2),
-    (100005, 'mean', 10.0),
-    (100005, 'tea',  1.0),
-    (100006, 'ear fish', 5.1),
-    (100006, 'hot dog', 2.1);
+    (100005, 'ice cream', 3.99),
+    (100005, 'Cinnamon waffle', 4.99),
+    (100005, 'Fruit trifle',  3.44),
+    (100006, 'Garlic Bread', 3.50),
+    (100006, 'Mozzarella salad', 4.50),
+    (100006, 'Olives', 3.99),
+    (100007, 'Жульен', 5.59),
+    (100007, 'Курник', 3.99),
+    (100007, 'Растягай', 2.11)
+;
 
-INSERT INTO voting (user_id, rest_id, voting)
+INSERT INTO voting (user_id, rest_id)
 VALUES
-    (100001, 100004, '2022-04-15 10:00:01'),
-    (100000, 100003, '2022-04-15 10:00:01'),
-    (100001, 100004, '2022-04-15 10:59:59'),
-    (100002, 100004, '2022-04-15 09:00:00');
+    (100001, 100004),
+    (100000, 100003),
+    (100001, 100004)
+;

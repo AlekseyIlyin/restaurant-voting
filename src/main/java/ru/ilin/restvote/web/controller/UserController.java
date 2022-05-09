@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.service.UserService;
 import ru.ilin.restvote.to.UserTo;
-import ru.ilin.restvote.urils.SecurityUtil;
-import ru.ilin.restvote.urils.UserUtil;
+import ru.ilin.restvote.utils.SecurityUtil;
+import ru.ilin.restvote.utils.UserUtil;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/users/admin")
+@RequestMapping("/rest/admin/users")
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -36,7 +36,7 @@ public class UserController {
             @PathVariable int id
     ) {
         log.info("get {}", id);
-        return service.getById(id);
+        return service.get(id);
     }
 
     @PostMapping()
@@ -70,11 +70,11 @@ public class UserController {
 
     public void create(UserTo userTo) {
         log.info("create user {} with user id {}", userTo, SecurityUtil.authUserId());
-        service.save(UserUtil.createNewFromTo(userTo));
+        service.create(UserUtil.createNewFromTo(userTo));
     }
 
     public void update(UserTo userTo, int id) {
         log.info("update user {} with id={} with user id {}", userTo, id, SecurityUtil.authUserId());
-        service.save(UserUtil.updateFromTo(new User(), userTo));
+        service.update(UserUtil.updateFromTo(new User(), userTo));
     }
 }

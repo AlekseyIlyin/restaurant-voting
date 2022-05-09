@@ -1,4 +1,4 @@
-package ru.ilin.restvote.urils;
+package ru.ilin.restvote.utils;
 
 import ru.ilin.restvote.model.Dish;
 import ru.ilin.restvote.model.Menu;

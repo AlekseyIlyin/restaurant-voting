@@ -7,8 +7,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import static ru.ilin.restvote.urils.DateTimeUtil.parseLocalDate;
-import static ru.ilin.restvote.urils.DateTimeUtil.parseLocalTime;
+import static ru.ilin.restvote.utils.DateTimeUtil.parseLocalDate;
+import static ru.ilin.restvote.utils.DateTimeUtil.parseLocalTime;
 
 public class DateTimeFormatters {
     public static class LocalDateFormatter implements Formatter<LocalDate> {

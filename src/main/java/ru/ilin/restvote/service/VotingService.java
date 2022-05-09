@@ -36,6 +36,6 @@ public class VotingService {
     }
 
     public void save(int restaurantId, LocalDateTime dateTime, int userId) {
-        saveVote(new Vote(restaurantService.getById(restaurantId), userService.getById(userId), dateTime));
+        saveVote(new Vote(restaurantService.getById(restaurantId), userService.get(userId), dateTime));
     }
 }
