@@ -30,7 +30,7 @@ public class VotingController {
             @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
         log.info("get result voting by date {} for user {}", date == null ? LocalDate.now() : date, SecurityUtil.authUserId());
-        return service.getRateVotingByDate(date);
+        return service.getRateVotingByDate(date == null ? LocalDate.now() : date);
     }
 
     @PostMapping()

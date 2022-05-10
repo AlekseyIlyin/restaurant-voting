@@ -26,7 +26,7 @@ public class VotingService {
     }
 
     public List<VotingResult> getRateVotingByDate(LocalDate date) {
-        return repository.getRateVotingByDate(date.atStartOfDay(), date.atTime(Vote.TIME_BEFORE_VOTING));
+        return repository.getResultVoting(date.atStartOfDay(), date.atTime(Vote.TIME_BEFORE_VOTING));
     }
 
     @Transactional

@@ -19,7 +19,7 @@ public class Menu extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDate date;
 

@@ -1,3 +1,4 @@
+DROP FUNCTION IF EXISTS getVotingResult;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS restaurants;
@@ -52,5 +53,14 @@ CREATE TABLE voting (
                     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
                     user_id     INTEGER                     NOT NULL ,
                     rest_id     INTEGER                     NOT NULL ,
-                    vote_datetime TIMESTAMP  DEFAULT now() NOT NULL
+                    vote_datetime TIMESTAMP  DEFAULT CURRENT_DATE NOT NULL
 );
+CREATE UNIQUE INDEX voting_unique_userid_votedatetime_idx ON voting (user_id,vote_datetime);
+
+CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
+    RETURNS TABLE (rest_id INTEGER, rate INTEGER)
+    LANGUAGE sql
+    AS '
+        SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
+            SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id;
+';

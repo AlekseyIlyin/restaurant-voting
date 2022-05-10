@@ -2,14 +2,14 @@ package ru.ilin.restvote.to;
 
 public class VotingResult {
     private int rest_id;
-    private long voting;
+    private long rate;
 
     public VotingResult() {
     }
 
-    public VotingResult(int rest_id, long voting) {
+    public VotingResult(int rest_id, long rate) {
         this.rest_id = rest_id;
-        this.voting = voting;
+        this.rate = rate;
     }
 
     public int getRest_id() {
@@ -21,18 +21,18 @@ public class VotingResult {
     }
 
     public long getVoting() {
-        return voting;
+        return rate;
     }
 
     public void setVoting(int voting) {
-        this.voting = voting;
+        this.rate = voting;
     }
 
     @Override
     public String toString() {
         return "VotingResult{" +
                 "restaurant=" + rest_id +
-                ", voting=" + voting +
+                ", rate=" + rate +
                 '}';
     }
 }

@@ -56,3 +56,4 @@ As a result, provide a link to github repository. It should contain the code, RE
 - Получить все рестораны: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant
 - Получить ресторан с id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
 - Получить меню по всем ресторанам на дату (если дата не указана - то на текущую): curl -u user@yandex.ru:password http://localhost:8080/rest/menu
+- Получить результат голосования на дату (если дата не указана - то на текущую): curl -u user@yandex.ru:password http://localhost:8080/rest/vote/rating

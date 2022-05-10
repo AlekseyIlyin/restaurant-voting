@@ -12,6 +12,6 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface VotingRepository extends JpaRepository<Vote, Integer> {
-    @Query("SELECT new ru.ilin.restvote.to.VotingResult(u.restaurant.id, COUNT(u.restaurant.id)) FROM Vote u WHERE u.voteDateTime>=:startDateTime AND u.voteDateTime<:endDateTime GROUP BY u.restaurant.id")
-    List<VotingResult> getRateVotingByDate(@Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
+    @Query(nativeQuery = true) // https://stackoverflow.com/questions/49056084/got-different-size-of-tuples-and-aliases-exception-after-spring-boot-2-0-0-rel
+    List<VotingResult> getResultVoting(@Param("startDateTime") LocalDateTime startDateTime, @Param("beforeDateTime") LocalDateTime beforeDateTime);
 }

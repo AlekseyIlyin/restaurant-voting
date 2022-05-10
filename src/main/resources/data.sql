@@ -38,9 +38,9 @@ VALUES
     (100007, 'Растягай', 2.11)
 ;
 
-INSERT INTO voting (user_id, rest_id)
+INSERT INTO voting (user_id, rest_id, vote_datetime)
 VALUES
-    (100001, 100004),
-    (100000, 100003),
-    (100001, 100004)
+    (100001, 100004, CURRENT_DATE),
+    (100000, 100003, CURRENT_DATE + INTERVAL '3 HOUR'),
+    (100001, 100004, CURRENT_DATE + INTERVAL '4 HOUR')
 ;
