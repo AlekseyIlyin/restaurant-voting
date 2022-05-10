@@ -21,6 +21,7 @@ import java.time.LocalTime;
         })
 
 /*
+//POSTGRES:
 CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
         RETURNS TABLE (rest_id INTEGER, rate INTEGER)
         LANGUAGE sql
@@ -28,11 +29,18 @@ CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAM
         SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
         SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id;
         ';
+//HSQL:
+CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
+    RETURNS TABLE (rest_id INTEGER, rate INTEGER)
+    READS SQL DATA
+        RETURN TABLE (
+        SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
+            SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id);
 */
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = Vote.GET_RESULT_VOTING,
-                query = "SELECT * FROM getvotingresult(?,?)",
+                query = "SELECT * FROM TABLE(getvotingresult(?,?))",
                 resultSetMapping = "VotingResult"
         )
 })

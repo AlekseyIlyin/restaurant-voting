@@ -1,4 +1,4 @@
-package ru.ilin.restvote;
+package ru.ilin.restvote.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +14,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import ru.ilin.restvote.AuthorizedUser;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.repository.UserRepository;
 
 @Configuration
-public class ConfigSecurity extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -26,7 +27,7 @@ public class ConfigSecurity extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
-    public ConfigSecurity(UserRepository userRepository, AuthenticationEntryPoint authenticationEntryPoint) {
+    public SecurityConfig(UserRepository userRepository, AuthenticationEntryPoint authenticationEntryPoint) {
         this.userRepository = userRepository;
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
