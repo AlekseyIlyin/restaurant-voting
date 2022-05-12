@@ -46,7 +46,7 @@ CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAM
 })
 
 @Entity
-@Table(name = "voting")
+@Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
 
     public static final String GET_RESULT_VOTING = "Vote.getResultVoting";
@@ -65,13 +65,13 @@ public class Vote extends AbstractBaseEntity {
     @Column(name = "vote_datetime", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     private LocalDateTime voteDateTime;
 
+    public Vote() {
+    }
+
     public Vote(Restaurant restaurant, User user, LocalDateTime voteDateTime) {
         this.restaurant = restaurant;
         this.user = user;
         this.voteDateTime = voteDateTime;
-    }
-
-    public Vote() {
     }
 
     public Restaurant getRestaurant() {
@@ -80,5 +80,14 @@ public class Vote extends AbstractBaseEntity {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "user=" + user +
+                ", restaurant=" + restaurant +
+                ", voteDateTime=" + voteDateTime +
+                '}';
     }
 }

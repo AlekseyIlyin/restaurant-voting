@@ -15,6 +15,7 @@ import ru.ilin.restvote.AuthorizedUser;
 import ru.ilin.restvote.model.AbstractBaseEntity;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.repository.UserRepository;
+import ru.ilin.restvote.repository.datajpa.CrudUserRepository;
 import ru.ilin.restvote.to.UserTo;
 import ru.ilin.restvote.utils.UserUtil;
 import ru.ilin.restvote.utils.exception.UpdateRestrictionException;
@@ -51,7 +52,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User get(int id) {
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     public User getByEmail(String email) {
@@ -61,7 +62,7 @@ public class UserService implements UserDetailsService {
 
     @Cacheable("users")
     public List<User> getAll() {
-        return repository.findAll();
+        return repository.getAll();
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -103,7 +104,8 @@ public class UserService implements UserDetailsService {
     }
 
     protected void checkModificationAllowed(int id) {
-        if (id < AbstractBaseEntity.START_SEQ + 2) {
+        // Admin user not allowed modified
+        if (id == AbstractBaseEntity.START_SEQ + 1) {
             throw new UpdateRestrictionException();
         }
     }

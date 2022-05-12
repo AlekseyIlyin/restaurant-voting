@@ -13,6 +13,7 @@ import ru.ilin.restvote.utils.SecurityUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("rest/vote")

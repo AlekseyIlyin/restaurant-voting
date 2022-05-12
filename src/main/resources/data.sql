@@ -1,5 +1,5 @@
 DELETE FROM user_roles;
-DELETE FROM voting;
+DELETE FROM votes;
 DELETE FROM dishes;
 DELETE FROM menu;
 DELETE FROM restaurants;
@@ -22,6 +22,7 @@ VALUES
 
 INSERT INTO menu (rest_id)
 VALUES
+    (100002),
     (100003),
     (100004);
 
@@ -38,9 +39,10 @@ VALUES
     (100007, 'Растягай', 2.11)
 ;
 
-INSERT INTO voting (user_id, rest_id, vote_datetime)
+INSERT INTO votes (user_id, rest_id, vote_datetime)
 VALUES
-    (100001, 100004, CURRENT_DATE),
+    (100001, 100002, CURRENT_DATE),
     (100000, 100003, CURRENT_DATE + INTERVAL '3' HOUR),
-    (100001, 100004, CURRENT_DATE + INTERVAL '4' HOUR)
+    (100001, 100004, CURRENT_DATE + INTERVAL '4' HOUR),
+    (100001, 100004, CURRENT_DATE + INTERVAL '11' HOUR)
 ;

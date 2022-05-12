@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS dishes;
-DROP TABLE IF EXISTS voting;
+DROP TABLE IF EXISTS votes;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START WITH 100000;
@@ -49,18 +49,18 @@ CREATE TABLE dishes (
 );
 CREATE UNIQUE INDEX dishes_unique_menuid_name_idx ON dishes (menu_id,name);
 
-CREATE TABLE voting (
+CREATE TABLE votes (
                     id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
                     user_id     INTEGER                     NOT NULL ,
                     rest_id     INTEGER                     NOT NULL ,
                     vote_datetime TIMESTAMP  DEFAULT CURRENT_DATE NOT NULL
 );
-CREATE UNIQUE INDEX voting_unique_userid_votedatetime_idx ON voting (user_id,vote_datetime);
+CREATE UNIQUE INDEX voting_unique_userid_votedatetime_idx ON votes (user_id,vote_datetime);
 
 CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
     RETURNS TABLE (rest_id INTEGER, rate INTEGER)
     LANGUAGE sql
     AS '
-        SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
-            SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id;
+        SELECT rest_id, COUNT(rest_id) AS rate FROM votes WHERE vote_datetime IN (
+            SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM votes WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id;
 ';

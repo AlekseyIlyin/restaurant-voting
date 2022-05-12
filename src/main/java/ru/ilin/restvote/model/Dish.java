@@ -1,5 +1,8 @@
 package ru.ilin.restvote.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -7,8 +10,9 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "dishes")
 public class Dish extends AbstractNamedEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Menu menu;
 
     @Column(name = "price")
@@ -43,7 +47,8 @@ public class Dish extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Dish{" +
-                "name=" + name +
+                "menu=" + menu +
+                ", name=" + name +
                 ", price='" + price + '\'' +
                 '}';
     }

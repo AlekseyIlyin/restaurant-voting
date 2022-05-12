@@ -36,7 +36,7 @@ public class RestaurantController {
             @PathVariable int id
     ) {
         log.info("get restaurant by id {} with user {}", id, SecurityUtil.authUserId());
-        return service.getById(id);
+        return service.get(id);
     }
 
     @PostMapping("/admin")

@@ -66,11 +66,11 @@ public class MenuController {
 
     public void create(MenuTo menuTo) {
         log.info("create menu {} with user id {}", menuTo, SecurityUtil.authUserId());
-        service.save(MenuUtil.createNewFromTo(menuTo));
+        service.create(MenuUtil.createNewFromTo(menuTo));
     }
 
     public void update(MenuTo menuTo, int id) {
         log.info("update menu {} with id={} with user id {}", menuTo, id, SecurityUtil.authUserId());
-        service.save(MenuUtil.updateFromTo(new Menu(), menuTo));
+        service.update(MenuUtil.updateFromTo(new Menu(), menuTo));
     }
 }

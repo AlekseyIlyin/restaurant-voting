@@ -16,18 +16,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import ru.ilin.restvote.AuthorizedUser;
 import ru.ilin.restvote.model.User;
-import ru.ilin.restvote.repository.UserRepository;
+import ru.ilin.restvote.repository.datajpa.CrudUserRepository;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final UserRepository userRepository;
+    private final CrudUserRepository userRepository;
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
-    public SecurityConfig(UserRepository userRepository, AuthenticationEntryPoint authenticationEntryPoint) {
+    public SecurityConfig(CrudUserRepository userRepository, AuthenticationEntryPoint authenticationEntryPoint) {
         this.userRepository = userRepository;
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
