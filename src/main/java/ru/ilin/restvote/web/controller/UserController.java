@@ -1,5 +1,6 @@
 package ru.ilin.restvote.web.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class UserController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Get all user list")
     @GetMapping()
     public List<User> getAll() {
         log.info("getAll");

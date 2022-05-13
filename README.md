@@ -1,28 +1,3 @@
-Java Enterprise выпускной проект
-===============================
-
-### Разработайте и внедрите REST API с использованием Hibernate/Spring/SpringMVC (или Spring-Boot) без внешнего интерфейса.
-
-## Задача:
-### Создайте систему голосования, чтобы решить, где пообедать.
-
-- 2 типа пользователей: администратор и обычные пользователи
-- Администратор может ввести ресторан и его обеденное меню дня (обычно 2-5 пунктов, только название блюда и цена)
-- Меню меняется каждый день (обновления делают администраторы)
-- Пользователи могут проголосовать за ресторан, в котором они хотят пообедать.
-- Учитывается только один голос от пользователя
-- Если пользователь проголосует снова в тот же день:
-  - Если до 11:00, мы предполагаем, что он передумал.
-  - Если после 11:00, то уже поздно, голосовать нельзя
-- Каждый ресторан предлагает новое меню каждый день.
-
-В результате предоставьте ссылку на репозиторий github. Он должен содержать код, README.md с документацией по API и пару команд curl для его проверки (лучше — ссылку на Swagger).
-
-<em> P.S.: Убедитесь, что все работает с последней версией, которая есть на github :)</em>
-
-<em>P.P.S.: Предположим, что ваш API будет использоваться разработчиком внешнего интерфейса для создания внешнего интерфейса поверх него.</em>
-
-
 Java Enterprise senior project
 ===============================
 
@@ -48,12 +23,19 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 <em>P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.</em>
 
-### 15.05.22: Дедлайн на сдачу [выпускного проекта](https://github.com/JavaOPs/topjava/blob/master/graduation.md)
-### 25.05.22: Получение дипломов для участников [Дипломной программы](https://javaops.ru/view/register/diploma)
+### use:
+- Spring Boot
+- Spring Data JPA
+- Jackson
+- HSQL Database (Postgres)
+- JUnit 5
+- Swagger
+
+### Documentation: http://localhost:8080/swagger-ui.html#/
 
 ### Examples of calling the service:
-- Получить всех пользователей: curl -u admin@gmail.com:admin http://localhost:8080/rest/admin/users
-- Получить все рестораны: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant
-- Получить ресторан с id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
-- Получить меню по всем ресторанам на дату (если дата не указана - то на текущую): curl -u user@yandex.ru:password http://localhost:8080/rest/menu
-- Получить результат голосования на дату (если дата не указана - то на текущую): curl -u user@yandex.ru:password http://localhost:8080/rest/vote/rating
+- get all users: curl -u admin@gmail.com:admin http://localhost:8080/rest/admin/users
+- get all restaurants: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant
+- get restaurant with id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
+- get all menus by date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/menu
+- get result voting on the date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/vote/rating
