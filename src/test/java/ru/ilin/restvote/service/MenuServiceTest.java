@@ -69,11 +69,13 @@ public class MenuServiceTest extends AbstractServiceTest {
     @Test
     void getAllByDate() {
         List<Menu> all = service.getAllByDate(LocalDate.now());
-        MENU_MATCHER.assertMatch(all, menu1, menu2, menu3);
+        MENU_MATCHER_WITHOUT_DISHES.assertMatch(all, menu1, menu2, menu3);
     }
 
     @Test
     void getByRestaurantAndDate() {
         MENU_MATCHER.assertMatch(menu1, service.getByRestaurantAndDate(restaurantForMenu1.getId(), LocalDate.now()));
     }
+
+
 }

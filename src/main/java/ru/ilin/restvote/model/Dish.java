@@ -14,7 +14,7 @@ public class Dish extends AbstractNamedEntity {
 
     @ManyToOne
     @JoinColumn(name = "menu_id", nullable = false)
-    //@OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
     private Menu menu;
 
@@ -29,6 +29,12 @@ public class Dish extends AbstractNamedEntity {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public Dish(Dish dish, Menu menu) {
+        this.name = dish.name;
+        this.price = dish.price;
+        this.menu = menu;
     }
 
     public Menu getMenu() {
@@ -50,7 +56,7 @@ public class Dish extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Dish{" +
-                "menu=" + menu +
+                ", id=" + id +
                 ", name=" + name +
                 ", price='" + price + '\'' +
                 '}';

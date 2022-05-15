@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.ilin.restvote.model.Vote;
+import ru.ilin.restvote.to.VotingResult;
 import ru.ilin.restvote.utils.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.ilin.restvote.RestaurantTestData.RESTAURANT1_ID;
@@ -51,5 +54,11 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     void deletedNotFound() {
         assertThrows(NotFoundException.class, () -> service.delete(VOTE_NOT_FOUND));
+    }
+
+    @Test
+    void getResultVoting() {
+        List<VotingResult> votingResult = service.getRateVotingByDate(LocalDate.now());
+        VOTING_RESULT_MATCHER.assertMatch(votingResult, getVotingResult());
     }
 }
