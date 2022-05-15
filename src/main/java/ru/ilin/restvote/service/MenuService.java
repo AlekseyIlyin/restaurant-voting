@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.ilin.restvote.model.Menu;
-import ru.ilin.restvote.repository.datajpa.CrudMenuRepository;
+import ru.ilin.restvote.repository.MenuRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,15 +18,16 @@ import static ru.ilin.restvote.utils.validation.ValidationUtil.checkNotFoundWith
 @Service("menuService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class MenuService {
-    private final CrudMenuRepository repository;
+
+    private final MenuRepository repository;
 
     @Autowired
-    public MenuService(CrudMenuRepository repository) {
+    public MenuService(MenuRepository repository) {
         this.repository = repository;
     }
 
     public Menu get(int id) {
-        return checkNotFoundWithId(repository.getById(id), id);
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     public List<Menu> getAllByDate(LocalDate date) {
@@ -55,7 +56,7 @@ public class MenuService {
     @Modifying
     public void deleteByRestaurantAndDate(int restId, LocalDate date) {
         Menu menu = repository.getByRestaurantAndDate(restId, date);
-        repository.deleteDishesByMenuId(menu.getId());
-        repository.deleteByRestaurantAndDate(restId, date);
+        Assert.notNull(menu, "menu must not be null");
+        delete(menu.getId());
     }
 }

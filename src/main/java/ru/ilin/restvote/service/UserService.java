@@ -15,7 +15,6 @@ import ru.ilin.restvote.AuthorizedUser;
 import ru.ilin.restvote.model.AbstractBaseEntity;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.repository.UserRepository;
-import ru.ilin.restvote.repository.datajpa.CrudUserRepository;
 import ru.ilin.restvote.to.UserTo;
 import ru.ilin.restvote.utils.UserUtil;
 import ru.ilin.restvote.utils.exception.UpdateRestrictionException;

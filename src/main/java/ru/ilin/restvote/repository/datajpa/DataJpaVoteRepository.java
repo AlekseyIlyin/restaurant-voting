@@ -31,7 +31,7 @@ public class DataJpaVoteRepository implements VoteRepository {
 
     @Override
     public Vote get(int id) {
-        return crudRepository.getById(id);
+        return crudRepository.findById(id).orElse(null);
     }
 
     @Override

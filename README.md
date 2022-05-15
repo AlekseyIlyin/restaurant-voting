@@ -39,3 +39,7 @@ As a result, provide a link to github repository. It should contain the code, RE
 - get restaurant with id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
 - get all menus by date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/menu
 - get result voting on the date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/vote/rating
+
+#### User : password:
+- admin@gmail.com : admin
+- user@yandex.ru : password

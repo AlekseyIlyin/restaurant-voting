@@ -10,35 +10,35 @@ import java.util.List;
 
 @Repository
 public class DataJpaMenuRepository implements MenuRepository {
-    private final CrudMenuRepository crudRepository;
+    private final CrudMenuRepository menuRepository;
 
     @Autowired
     public DataJpaMenuRepository(CrudMenuRepository crudRepository) {
-        this.crudRepository = crudRepository;
+        this.menuRepository = crudRepository;
     }
 
     @Override
     public Menu save(Menu menu) {
-        return crudRepository.save(menu);
+        return menuRepository.save(menu);
     }
 
     @Override
     public boolean delete(int id) {
-        return crudRepository.delete(id) != 0;
+        return menuRepository.delete(id) != 0;
     }
 
     @Override
     public Menu get(int id) {
-        return crudRepository.getById(id);
+        return menuRepository.findById(id).orElse(null);
     }
 
     @Override
     public Menu getByRestaurantAndDate(int rest_id, LocalDate date) {
-        return crudRepository.getByRestaurantAndDate(rest_id, date);
+        return menuRepository.getByRestaurantAndDate(rest_id, date);
     }
 
     @Override
     public List<Menu> getAllByDate(LocalDate date) {
-        return crudRepository.getAllByDate(date);
+        return menuRepository.getAllByDate(date);
     }
 }

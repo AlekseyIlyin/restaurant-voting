@@ -1,6 +1,8 @@
 package ru.ilin.restvote.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
@@ -18,20 +20,21 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //https://ask-dev.ru/info/37294/strange-jackson-exception-being-thrown-when-serializing-hibernate-object
 public class Menu extends AbstractBaseEntity {
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "rest_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference
     private Restaurant restaurant;
 
     @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDate date;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    // https://stackoverflow.com/questions/2302802/how-to-fix-the-hibernate-object-references-an-unsaved-transient-instance-save
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference
     private Set<Dish> dishes;
 
     public Menu() {
@@ -48,6 +51,7 @@ public class Menu extends AbstractBaseEntity {
         super(id);
         this.restaurant = restaurant;
         this.date = date;
+        this.dishes = new HashSet<>();
     }
 
     public Menu(Integer id, Restaurant restaurant, LocalDate date, Collection<Dish> dishes) {
@@ -84,6 +88,6 @@ public class Menu extends AbstractBaseEntity {
         return "Menu{" +
                 "id=" + id +
                 ", restaurant=" + restaurant +
-                ", date=" + date + '}';
+                ", date=" + date + ", dishes=" + dishes + '}';
     }
 }

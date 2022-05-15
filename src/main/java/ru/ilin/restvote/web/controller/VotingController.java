@@ -40,6 +40,6 @@ public class VotingController {
             @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime
     ) {
         log.info("vote rest id {} and date {} with user {}", rest_id, dateTime == null ? LocalDate.now() : dateTime, SecurityUtil.authUserId());
-        service.save(rest_id, dateTime == null ? LocalDateTime.now() : dateTime, SecurityUtil.authUserId());
+        service.createVote(rest_id, dateTime == null ? LocalDateTime.now() : dateTime, SecurityUtil.authUserId());
     }
 }
