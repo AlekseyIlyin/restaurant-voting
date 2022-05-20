@@ -1,22 +1,18 @@
 package ru.ilin.restvote.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.ilin.restvote.model.Menu;
 import ru.ilin.restvote.repository.MenuRepository;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 import static ru.ilin.restvote.utils.validation.ValidationUtil.checkNotFoundWithId;
 
-@Service("menuService")
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Service
 public class MenuService {
 
     private final MenuRepository repository;
@@ -27,7 +23,7 @@ public class MenuService {
     }
 
     public Menu get(int id) {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
     public List<Menu> getAllByDate(LocalDate date) {
@@ -49,14 +45,10 @@ public class MenuService {
     }
 
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
-    @Transactional
-    @Modifying
-    public void deleteByRestaurantAndDate(int restId, LocalDate date) {
-        Menu menu = repository.getByRestaurantAndDate(restId, date);
-        Assert.notNull(menu, "menu must not be null");
-        delete(menu.getId());
+    public Collection<Menu> getAll() {
+        return repository.findAll();
     }
 }

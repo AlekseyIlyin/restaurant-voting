@@ -1,9 +1,8 @@
-package ru.ilin.restvote.repository.datajpa;
+package ru.ilin.restvote.repository;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.ilin.restvote.model.User;
-import ru.ilin.restvote.repository.UserRepository;
 
 import java.util.List;
 

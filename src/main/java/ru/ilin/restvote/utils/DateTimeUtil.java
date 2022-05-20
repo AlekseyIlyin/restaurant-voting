@@ -11,7 +11,9 @@ import java.time.temporal.ChronoUnit;
 
 public class DateTimeUtil {
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
+    public static final String TIME_PATTERN = "HH:mm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
 
     // DB doesn't support LocalDate.MIN/MAX
     private static final LocalDateTime MIN_DATE = LocalDateTime.of(1, 1, 1, 0, 0);
@@ -26,6 +28,14 @@ public class DateTimeUtil {
 
     public static LocalDateTime atStartOfNextDayOrMax(LocalDate localDate) {
         return localDate != null ? localDate.plus(1, ChronoUnit.DAYS).atStartOfDay() : MAX_DATE;
+    }
+
+    public static LocalDateTime getNowIfNullDate(LocalDateTime dateTime) {
+        return dateTime == null ? LocalDateTime.now() : dateTime;
+    }
+
+    public static LocalDate getNowIfNullDate(LocalDate date) {
+        return date == null ? LocalDate.now() : date;
     }
 
     public static String toString(LocalDateTime ldt) {

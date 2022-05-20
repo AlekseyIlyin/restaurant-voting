@@ -1,8 +1,8 @@
 DELETE FROM user_roles;
-DELETE FROM votes;
-DELETE FROM dishes;
+DELETE FROM vote;
+DELETE FROM dish;
 DELETE FROM menu;
-DELETE FROM restaurants;
+DELETE FROM restaurant;
 DELETE FROM users;
 
 INSERT INTO users (name, email, password)
@@ -14,7 +14,7 @@ VALUES ('USER', 100000),
        ('ADMIN', 100001),
        ('USER', 100001);
 
-INSERT INTO restaurants (name)
+INSERT INTO restaurant (name)
 VALUES
     ('Astoria'),
     ('Kosmos'),
@@ -26,7 +26,7 @@ VALUES
     (100003),
     (100004);
 
-INSERT INTO dishes (menu_id, name, price)
+INSERT INTO dish (menu_id, name, price)
 VALUES
     (100005, 'ice cream', 3.99),
     (100005, 'Cinnamon waffle', 4.99),
@@ -39,10 +39,10 @@ VALUES
     (100007, 'Растягай', 2.11)
 ;
 
-INSERT INTO votes (user_id, rest_id, vote_datetime)
+INSERT INTO vote (user_id, rest_id)
 VALUES
-    (100001, 100002, CURRENT_DATE),
-    (100000, 100003, CURRENT_DATE + INTERVAL '3' HOUR),
-    (100001, 100004, CURRENT_DATE + INTERVAL '4' HOUR),
-    (100001, 100004, CURRENT_DATE + INTERVAL '11' HOUR)
+    (100001, 100002),
+    (100000, 100003),
+    (100001, 100004),
+    (100001, 100004)
 ;

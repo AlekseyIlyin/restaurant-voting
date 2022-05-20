@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.service.UserService;
@@ -15,8 +16,11 @@ import ru.ilin.restvote.utils.UserUtil;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/admin/users")
+@RequestMapping(value = UserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+
+    public static final String REST_URL = "/rest/admin/users";
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final UserService service;
@@ -39,6 +43,11 @@ public class UserController {
     ) {
         log.info("get {}", id);
         return service.get(id);
+    }
+
+    @GetMapping("/by-email")
+    public User getByMail(@RequestParam String email) {
+        return service.getByEmail(email);
     }
 
     @PostMapping()

@@ -1,6 +1,9 @@
-package ru.ilin.restvote.repository.datajpa;
+package ru.ilin.restvote.repository;
 
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ilin.restvote.model.User;
@@ -19,6 +22,4 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
             @QueryHint(name = org.hibernate.jpa.QueryHints.HINT_PASS_DISTINCT_THROUGH, value = "false")
     })
     User getByEmail(String email);
-
-    //    https://stackoverflow.com/a/46013654/548473
 }

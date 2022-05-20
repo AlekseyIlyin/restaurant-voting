@@ -26,7 +26,7 @@ public class Menu extends AbstractBaseEntity {
     @JsonBackReference
     private Restaurant restaurant;
 
-    @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "on_date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDate date;
 
@@ -92,10 +92,6 @@ public class Menu extends AbstractBaseEntity {
         return "Menu{" +
                 "id=" + id +
                 ", restaurant=" + restaurant.name +
-                ", date=" + date + ", dishes=" + dishes.stream().sorted((o1, o2) -> {
-            assert o1.getId() != null;
-            assert o2.getId() != null;
-            return o1.getId().compareTo(o2.getId());
-        }).toList() + '}';
+                ", date=" + date;
     }
 }

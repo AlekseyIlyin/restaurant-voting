@@ -3,20 +3,22 @@ package ru.ilin.restvote.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ru.ilin.restvote.model.Vote;
 import ru.ilin.restvote.service.VotingService;
-import ru.ilin.restvote.to.VotingResult;
 import ru.ilin.restvote.utils.SecurityUtil;
+import ru.ilin.restvote.utils.exception.IllegalRequestDataException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalTime;
+
+import static ru.ilin.restvote.utils.DateTimeUtil.DATE_TIME_FORMATTER;
+import static ru.ilin.restvote.web.ExceptionInfoHandler.EXCEPTION_VOTE;
 
 @RestController
-@RequestMapping("rest/vote")
+@RequestMapping("rest/voting")
 public class VotingController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final VotingService service;
@@ -26,20 +28,14 @@ public class VotingController {
         this.service = service;
     }
 
-    @GetMapping("/rating")
-    public List<VotingResult> getRateVotingByDate(
-            @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
-    ) {
-        log.info("get result voting by date {} for user {}", date == null ? LocalDate.now() : date, SecurityUtil.authUserId());
-        return service.getRateVotingByDate(date == null ? LocalDate.now() : date);
-    }
-
     @PostMapping()
     public void vote(
-            @RequestParam int rest_id,
-            @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime
+            @RequestParam int restId
     ) {
-        log.info("vote rest id {} and date {} with user {}", rest_id, dateTime == null ? LocalDate.now() : dateTime, SecurityUtil.authUserId());
-        service.createVote(rest_id, dateTime == null ? LocalDateTime.now() : dateTime, SecurityUtil.authUserId());
+        log.info("vote rest id {} with user {}", restId, SecurityUtil.authUserId());
+        if (LocalTime.now().isAfter(Vote.TIME_BEFORE_VOTING)) {
+            throw new IllegalRequestDataException(EXCEPTION_VOTE + " " + Vote.TIME_BEFORE_VOTING.format(DATE_TIME_FORMATTER));
+        }
+        service.createVote(restId, SecurityUtil.authUserId());
     }
 }

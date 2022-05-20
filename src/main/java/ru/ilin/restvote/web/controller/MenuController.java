@@ -16,8 +16,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ru.ilin.restvote.utils.DateTimeUtil.getNowIfNullDate;
+
 @RestController
-@RequestMapping("/rest/menu")
+@RequestMapping("/rest")
 public class MenuController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final MenuService service;
@@ -27,24 +29,30 @@ public class MenuController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping("/menus")
+    public List<MenuTo> getAll() {
+        log.info("get all menus with user id {}", SecurityUtil.authUserId());
+        return service.getAll().stream().map(MenuUtil::asTo).collect(Collectors.toList());
+    }
+
+    @GetMapping("/menus/bydate")
     public List<MenuTo> getAllByDate(
             @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
-        log.info("get all menu for date {} with user id {}", date == null ? LocalDate.now() : date, SecurityUtil.authUserId());
+        log.info("get all menu for date {} with user id {}", getNowIfNullDate(date), SecurityUtil.authUserId());
         return service.getAllByDate(date == null ? LocalDate.now() : date).stream().map(MenuUtil::asTo).collect(Collectors.toList());
     }
 
-    @GetMapping("/{rest_id}")
+    @GetMapping("/menus/{restId}")
     public MenuTo getByRestaurantAndDate(
-            @PathVariable int rest_id,
+            @PathVariable int restId,
             @RequestParam @Nullable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
-        log.info("get menu for restaurant id {} and date {} with user id {}", rest_id, date, SecurityUtil.authUserId());
-        return MenuUtil.asTo(service.getByRestaurantAndDate(rest_id, date == null ? LocalDate.now() : date));
+        log.info("get menu for restaurant id {} and date {} with user id {}", restId, date, SecurityUtil.authUserId());
+        return MenuUtil.asTo(service.getByRestaurantAndDate(restId, getNowIfNullDate(date)));
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/admin/menus")
     public void save(
             @RequestBody MenuTo menuTo
     ) {
@@ -53,15 +61,6 @@ public class MenuController {
         } else {
             update(menuTo, menuTo.id());
         }
-    }
-
-    @DeleteMapping("/admin/{rest_id}")
-    public void deleteByRestaurantAndDate(
-            @PathVariable int rest_id,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
-    ) {
-        log.info("delete menu rest id {} and date {} with user id {}", rest_id, date, SecurityUtil.authUserId());
-        service.deleteByRestaurantAndDate(rest_id, date);
     }
 
     public void create(MenuTo menuTo) {

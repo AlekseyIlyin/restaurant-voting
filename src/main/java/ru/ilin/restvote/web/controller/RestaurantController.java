@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.Restaurant;
 import ru.ilin.restvote.service.RestaurantService;
@@ -14,7 +15,7 @@ import ru.ilin.restvote.utils.SecurityUtil;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/restaurant")
+@RequestMapping(value = "/rest", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -25,13 +26,13 @@ public class RestaurantController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/restaurants")
     public List<Restaurant> getAll() {
         log.info("get all restaurants with user {}", SecurityUtil.authUserId());
         return service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/restaurants/{id}")
     public Restaurant get(
             @PathVariable int id
     ) {
@@ -57,6 +58,7 @@ public class RestaurantController {
             @PathVariable int id
     ) {
         log.info("delete restaurant with id {} with user {}", id, SecurityUtil.authUserId());
+        service.delete(id);
     }
 
     public void create(RestaurantTo restaurantTo) {

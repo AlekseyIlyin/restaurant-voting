@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import ru.ilin.restvote.AuthorizedUser;
 import ru.ilin.restvote.model.User;
-import ru.ilin.restvote.repository.datajpa.CrudUserRepository;
+import ru.ilin.restvote.repository.CrudUserRepository;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

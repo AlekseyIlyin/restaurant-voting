@@ -4,12 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.ilin.restvote.model.Vote;
-import ru.ilin.restvote.to.VotingResult;
 import ru.ilin.restvote.utils.exception.NotFoundException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.ilin.restvote.RestaurantTestData.RESTAURANT1_ID;
@@ -24,7 +19,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void createVote() {
-        Vote created = service.createVote(RESTAURANT1_ID, LocalDateTime.now(), ADMIN_ID);
+        Vote created = service.createVote(RESTAURANT1_ID, ADMIN_ID);
         int newId = created.getId();
         Vote newVote = getNewVote();
         newVote.setId(newId);
@@ -45,7 +40,7 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void delete() {
-        Vote created = service.createVote(RESTAURANT1_ID, LocalDateTime.now(), ADMIN_ID);
+        Vote created = service.createVote(RESTAURANT1_ID, ADMIN_ID);
         int newId = created.getId();
         service.delete(newId);
         assertThrows(NotFoundException.class, () -> service.get(newId));
@@ -54,11 +49,5 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     void deletedNotFound() {
         assertThrows(NotFoundException.class, () -> service.delete(VOTE_NOT_FOUND));
-    }
-
-    @Test
-    void getResultVoting() {
-        List<VotingResult> votingResult = service.getRateVotingByDate(LocalDate.now());
-        VOTING_RESULT_MATCHER.assertMatch(votingResult, getVotingResult());
     }
 }

@@ -3,8 +3,6 @@ package ru.ilin.restvote.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +23,7 @@ import static ru.ilin.restvote.utils.UserUtil.prepareToSave;
 import static ru.ilin.restvote.utils.validation.ValidationUtil.checkNotFound;
 import static ru.ilin.restvote.utils.validation.ValidationUtil.checkNotFoundWithId;
 
-@Service("userService")
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;

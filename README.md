@@ -1,5 +1,5 @@
-Java Enterprise senior project
-===============================
+Java Enterprise project
+=======================
 
 ### Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
 
@@ -35,10 +35,9 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 ### Examples of calling the service:
 - get all users: curl -u admin@gmail.com:admin http://localhost:8080/rest/admin/users
-- get all restaurants: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant
-- get restaurant with id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurant/100004
-- get all menus by date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/menu
-- get result voting on the date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/vote/rating
+- get all restaurants: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurants
+- get restaurant with id 100004: curl -u user@yandex.ru:password http://localhost:8080/rest/restaurants/100004
+- get all menus by date (if date missing then current): curl -u user@yandex.ru:password http://localhost:8080/rest/menus
 
 #### User : password:
 - admin@gmail.com : admin

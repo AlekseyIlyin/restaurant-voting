@@ -1,55 +1,18 @@
 package ru.ilin.restvote.model;
 
-import org.hibernate.annotations.NamedNativeQueries;
-import org.hibernate.annotations.NamedNativeQuery;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalTime;
 
-@SqlResultSetMapping(
-        name = "VotingResult",
-        classes = {
-                @ConstructorResult(
-                        targetClass = ru.ilin.restvote.to.VotingResult.class,
-                        columns = {
-                                @ColumnResult(name = "rest_id", type = Integer.class),
-                                @ColumnResult(name = "rate", type = Long.class)}
-                )
-        })
-
-/*
-//POSTGRES:
-CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
-        RETURNS TABLE (rest_id INTEGER, rate INTEGER)
-        LANGUAGE sql
-        AS '
-        SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
-        SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id;
-        ';
-//HSQL:
-CREATE FUNCTION getVotingResult(startDateTime TIMESTAMP, beforeDateTime TIMESTAMP)
-    RETURNS TABLE (rest_id INTEGER, rate INTEGER)
-    READS SQL DATA
-        RETURN TABLE (
-        SELECT rest_id, COUNT(rest_id) AS rate FROM voting WHERE vote_datetime IN (
-            SELECT vdt.vd FROM (SELECT user_id, MAX(vote_datetime) AS vd FROM voting WHERE vote_datetime>=startDateTime AND vote_datetime < beforeDateTime GROUP BY user_id) AS vdt) GROUP BY rest_id);
-*/
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = Vote.GET_RESULT_VOTING,
-                query = "SELECT * FROM TABLE(getvotingresult(?,?))",
-                resultSetMapping = "VotingResult"
-        )
-})
-
 @Entity
-@Table(name = "votes")
+@Table(name = "vote")
 public class Vote extends AbstractBaseEntity {
 
-    public static final String GET_RESULT_VOTING = "Vote.getResultVoting";
     public static final LocalTime TIME_BEFORE_VOTING = LocalTime.of(11, 0);
 
     @ManyToOne
@@ -62,21 +25,17 @@ public class Vote extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    @Column(name = "vote_datetime", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
-    private LocalDateTime voteDateTime;
-
     public Vote() {
     }
 
-    public Vote(Restaurant restaurant, User user, LocalDateTime voteDateTime) {
-        this(null, restaurant, user, voteDateTime);
+    public Vote(Restaurant restaurant, User user) {
+        this(null, restaurant, user);
     }
 
-    public Vote(Integer id, Restaurant restaurant, User user, LocalDateTime voteDateTime) {
+    public Vote(Integer id, Restaurant restaurant, User user) {
         super(id);
         this.restaurant = restaurant;
         this.user = user;
-        this.voteDateTime = voteDateTime;
     }
 
     public Restaurant getRestaurant() {
@@ -93,7 +52,6 @@ public class Vote extends AbstractBaseEntity {
                 "id=" + id +
                 ", user=" + user +
                 ", restaurant=" + restaurant +
-                ", voteDateTime=" + voteDateTime +
                 '}';
     }
 }

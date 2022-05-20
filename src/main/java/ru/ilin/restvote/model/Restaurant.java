@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "restaurant")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //https://ask-dev.ru/info/37294/strange-jackson-exception-being-thrown-when-serializing-hibernate-object
 public class Restaurant extends AbstractNamedEntity {

@@ -1,8 +1,6 @@
 package ru.ilin.restvote.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.ilin.restvote.model.Restaurant;
@@ -13,7 +11,6 @@ import java.util.List;
 import static ru.ilin.restvote.utils.validation.ValidationUtil.checkNotFoundWithId;
 
 @Service("restaurantService")
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RestaurantService {
     private final RestaurantRepository repository;
 
@@ -28,15 +25,15 @@ public class RestaurantService {
     }
 
     public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     public Restaurant get(int id) {
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     public void update(Restaurant restaurant) {
