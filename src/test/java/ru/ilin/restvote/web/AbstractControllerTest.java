@@ -20,13 +20,14 @@ import ru.ilin.restvote.utils.exception.ErrorType;
 import javax.annotation.PostConstruct;
 import java.util.Locale;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @Transactional
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public abstract class AbstractControllerTest {
+public abstract class AbstractControllerTest{
     private static final Locale RU_LOCALE = new Locale("ru");
     private static final Locale EN_LOCALE = new Locale("en");
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
@@ -52,6 +53,7 @@ public abstract class AbstractControllerTest {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
+                .apply(springSecurity())
                 .build();
     }
 

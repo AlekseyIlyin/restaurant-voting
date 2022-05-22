@@ -15,7 +15,8 @@ import static ru.ilin.restvote.model.AbstractBaseEntity.START_SEQ;
 public class MenuTestData {
     public static final MatcherFactory.Matcher<Menu> MENU_MATCHER = MatcherFactory
             .usingIgnoringFieldsComparator(Menu.class, "");
-
+    public static final MatcherFactory.Matcher<Menu> MENU_CONTROLLER_MATCHER = MatcherFactory
+            .usingIgnoringFieldsComparator(Menu.class, "restaurant,date");
     public static final MatcherFactory.Matcher<Menu> MENU_MATCHER_WITHOUT_DISHES = MatcherFactory
             .usingIgnoringFieldsComparator(Menu.class, "dishes");
 
@@ -23,7 +24,7 @@ public class MenuTestData {
     public static final int MENU1_ID = MENU_ID;
     public static final int MENU2_ID = MENU_ID + 1;
     public static final int MENU3_ID = MENU_ID + 2;
-    public static final int MENU_NOT_FOUND = MENU_ID + 4;
+    public static final int MENU_ID_NOT_FOUND = MENU_ID + 4;
 
     public static final int DISH_ID = START_SEQ + 8;
 

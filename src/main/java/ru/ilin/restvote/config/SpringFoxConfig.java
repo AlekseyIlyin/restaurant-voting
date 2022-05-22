@@ -33,14 +33,14 @@ public class SpringFoxConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis (RequestHandlerSelectors.basePackage ("ru.ilin.restvote")) // Пакет сканирования Swagger
+                .apis(RequestHandlerSelectors.basePackage("ru.ilin.restvote.web.controller")) // Пакет сканирования Swagger
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title ("Restaurant voting project RESTful API")
+                .title("Restaurant voting project RESTful API")
                 .contact(new Contact("Aleksey Ilin", "https://github.com/AlekseyIlyin/restaurant-voting", "kayrus@mail.ru"))
                 .version("1.0")
                 .build();

@@ -1,10 +1,9 @@
 package ru.ilin.restvote.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import ru.ilin.restvote.HasId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,14 +15,11 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "menu")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//https://ask-dev.ru/info/37294/strange-jackson-exception-being-thrown-when-serializing-hibernate-object
-public class Menu extends AbstractBaseEntity {
+public class Menu extends AbstractBaseEntity implements HasId {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "rest_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
     private Restaurant restaurant;
 
     @Column(name = "on_date", nullable = false, columnDefinition = "timestamp default now()")
@@ -91,7 +87,6 @@ public class Menu extends AbstractBaseEntity {
     public String toString() {
         return "Menu{" +
                 "id=" + id +
-                ", restaurant=" + restaurant.name +
                 ", date=" + date;
     }
 }

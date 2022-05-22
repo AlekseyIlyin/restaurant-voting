@@ -47,16 +47,17 @@ public class UserService implements UserDetailsService {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    @Cacheable({"users", "id"})
     public User get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
+    @Cacheable({"users", "email"})
     public User getByEmail(String email) {
         Assert.notNull(email, "email must not be null");
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    @Cacheable("users")
     public List<User> getAll() {
         return repository.getAll();
     }

@@ -2,10 +2,12 @@ package ru.ilin.restvote.to;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MenuTo extends BaseTo{
+public class MenuTo extends BaseTo {
 
+    @NotNull
     private RestaurantTo restaurantTo;
 
     @NotNull
@@ -20,7 +22,7 @@ public class MenuTo extends BaseTo{
         super(id);
         this.restaurantTo = restaurantTo;
         this.date = date;
-        this.dishesTo = dishesTo;
+        this.dishesTo = new ArrayList<>(dishesTo);
     }
 
     public RestaurantTo getRestaurant() {
@@ -44,6 +46,6 @@ public class MenuTo extends BaseTo{
     }
 
     public void setDishes(List<DishTo> dishesTo) {
-        this.dishesTo = dishesTo;
+        this.dishesTo = new ArrayList<>(dishesTo);
     }
 }

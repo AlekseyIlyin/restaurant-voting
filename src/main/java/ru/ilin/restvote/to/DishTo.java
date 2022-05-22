@@ -1,7 +1,10 @@
 package ru.ilin.restvote.to;
 
-public class DishTo extends BaseTo{
+import javax.validation.constraints.NotBlank;
 
+public class DishTo extends BaseTo {
+
+    @NotBlank
     private String name;
     private float price;
 

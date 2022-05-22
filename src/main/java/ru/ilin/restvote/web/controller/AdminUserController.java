@@ -13,11 +13,12 @@ import ru.ilin.restvote.to.UserTo;
 import ru.ilin.restvote.utils.SecurityUtil;
 import ru.ilin.restvote.utils.UserUtil;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = UserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
+@RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminUserController {
 
     public static final String REST_URL = "/rest/admin/users";
 
@@ -26,7 +27,7 @@ public class UserController {
     private final UserService service;
 
     @Autowired
-    public UserController(UserService service) {
+    public AdminUserController(UserService service) {
         this.service = service;
     }
 
@@ -50,10 +51,10 @@ public class UserController {
         return service.getByEmail(email);
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void save(
-            @RequestBody UserTo userTo
+            @Valid @RequestBody UserTo userTo
     ) {
         if (userTo.isNew()) {
             create(userTo);

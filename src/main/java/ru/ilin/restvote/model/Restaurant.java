@@ -1,6 +1,7 @@
 package ru.ilin.restvote.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ru.ilin.restvote.HasId;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "restaurant")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //https://ask-dev.ru/info/37294/strange-jackson-exception-being-thrown-when-serializing-hibernate-object
-public class Restaurant extends AbstractNamedEntity {
+public class Restaurant extends AbstractNamedEntity implements HasId {
 
     public Restaurant() {
     }

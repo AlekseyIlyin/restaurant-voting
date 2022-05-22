@@ -2,6 +2,7 @@ package ru.ilin.restvote.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import ru.ilin.restvote.HasId;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,7 +12,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "vote")
-public class Vote extends AbstractBaseEntity {
+public class Vote extends AbstractBaseEntity implements HasId {
 
     public static final LocalTime TIME_BEFORE_VOTING = LocalTime.of(11, 0);
 
