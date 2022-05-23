@@ -8,8 +8,7 @@ import ru.ilin.restvote.TimingExtension;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.ilin.restvote.utils.validation.ValidationUtil.getRootCause;
 
-@Sql(scripts = "classpath:schema.sql", config = @SqlConfig(encoding = "UTF-8"), executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-@Sql(scripts = "classpath:data.sql", config = @SqlConfig(encoding = "UTF-8"), executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = {"classpath:schema.sql", "classpath:data.sql"}, config = @SqlConfig(encoding = "UTF-8"), executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @ExtendWith(TimingExtension.class)
 public abstract class AbstractServiceTest {
 

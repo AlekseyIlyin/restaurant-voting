@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.ilin.restvote.model.Vote;
 import ru.ilin.restvote.service.VotingService;
 import ru.ilin.restvote.utils.SecurityUtil;
-import ru.ilin.restvote.utils.exception.IllegalRequestDataException;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
-import static ru.ilin.restvote.utils.DateTimeUtil.TIME_FORMATTER;
 import static ru.ilin.restvote.web.controller.VotingController.REST_URL;
 
 @RestController
@@ -35,9 +32,6 @@ public class VotingController {
             @RequestParam int restId
     ) {
         log.info("vote rest id {} with user {}", restId, SecurityUtil.authUserId());
-        if (LocalTime.now().isAfter(Vote.TIME_BEFORE_VOTING)) {
-            throw new IllegalRequestDataException("Vote can only be changed before " + Vote.TIME_BEFORE_VOTING.format(TIME_FORMATTER));
-        }
-        service.createVote(restId, SecurityUtil.authUserId());
+        service.createVote(restId, SecurityUtil.authUserId(), LocalDateTime.now());
     }
 }

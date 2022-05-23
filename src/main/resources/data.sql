@@ -5,6 +5,8 @@ DELETE FROM menu;
 DELETE FROM restaurant;
 DELETE FROM users;
 
+ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
+
 INSERT INTO users (name, email, password)
 VALUES ('User', 'user@yandex.ru', '{noop}password'),
        ('Admin', 'admin@gmail.com', '{noop}admin');

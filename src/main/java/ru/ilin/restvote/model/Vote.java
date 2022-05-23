@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Table(name = "vote")
 public class Vote extends AbstractBaseEntity implements HasId {
 
-    public static final LocalTime TIME_BEFORE_VOTING = LocalTime.of(11, 0);
+    public static final LocalTime VOTE_LAST_TIME_FOR_VOTING = LocalTime.of(11, 0);
 
     @ManyToOne
     @JoinColumn(name = "user_id")
