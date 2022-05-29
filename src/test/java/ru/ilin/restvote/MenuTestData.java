@@ -32,23 +32,23 @@ public class MenuTestData {
 
     public static final Menu menu1 = new Menu(MENU1_ID, restaurant1, LocalDate.now(),
             new ArrayList<>(Arrays.asList(
-                    new Dish(DISH_ID, "ice cream", 3.99f),
-                    new Dish(DISH_ID + 1, "Cinnamon waffle", 4.99f),
-                    new Dish(DISH_ID + 2, "Fruit trifle", 3.44f)))
+                    new Dish(DISH_ID, "ice cream", 3),
+                    new Dish(DISH_ID + 1, "Cinnamon waffle", 4),
+                    new Dish(DISH_ID + 2, "Fruit trifle", 3)))
     );
 
     public static final Menu menu2 = new Menu(MENU2_ID, restaurant2, LocalDate.now(),
             new ArrayList<>(Arrays.asList(
-                    new Dish(DISH_ID + 3, "Garlic Bread", 3.50f),
-                    new Dish(DISH_ID + 4, "Mozzarella salad", 4.50f),
-                    new Dish(DISH_ID + 5, "Olives", 3.99f)))
+                    new Dish(DISH_ID + 3, "Garlic Bread", 3),
+                    new Dish(DISH_ID + 4, "Mozzarella salad", 4),
+                    new Dish(DISH_ID + 5, "Olives", 3)))
     );
 
     public static final Menu menu3 = new Menu(MENU3_ID, restaurant3, LocalDate.now(),
             new ArrayList<>(Arrays.asList(
-                    new Dish(DISH_ID + 6, "Жульен", 3.59f),
-                    new Dish(DISH_ID + 7, "Курник", 3.99f),
-                    new Dish(DISH_ID + 8, "Растягай", 2.11f)))
+                    new Dish(DISH_ID + 6, "Жульен", 3),
+                    new Dish(DISH_ID + 7, "Курник", 3),
+                    new Dish(DISH_ID + 8, "Растягай", 2)))
     );
 
     public static Menu getNew() {

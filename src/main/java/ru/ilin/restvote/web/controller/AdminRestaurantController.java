@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.Restaurant;
 import ru.ilin.restvote.service.RestaurantService;
@@ -18,7 +17,7 @@ import java.util.List;
 import static ru.ilin.restvote.web.controller.AdminRestaurantController.REST_URL;
 
 @RestController
-@RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(REST_URL)
 public class AdminRestaurantController {
     public static final String REST_URL = "/rest/admin/restaurants";
 

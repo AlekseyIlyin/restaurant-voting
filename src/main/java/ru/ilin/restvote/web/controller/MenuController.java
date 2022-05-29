@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.Menu;
@@ -21,7 +20,7 @@ import static ru.ilin.restvote.utils.DateTimeUtil.getNowIfNullDate;
 import static ru.ilin.restvote.web.controller.MenuController.REST_URL;
 
 @RestController
-@RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(REST_URL)
 public class MenuController {
     public static final String REST_URL = "/rest/menus";
 

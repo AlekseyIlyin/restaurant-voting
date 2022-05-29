@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.ilin.restvote.model.User;
 import ru.ilin.restvote.service.UserService;
@@ -17,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(AdminUserController.REST_URL)
 public class AdminUserController {
 
     public static final String REST_URL = "/rest/admin/users";
@@ -51,7 +50,7 @@ public class AdminUserController {
         return service.getByEmail(email);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void save(
             @Valid @RequestBody UserTo userTo

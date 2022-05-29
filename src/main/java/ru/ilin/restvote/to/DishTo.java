@@ -6,12 +6,12 @@ public class DishTo extends BaseTo {
 
     @NotBlank
     private String name;
-    private float price;
+    private int price;
 
     public DishTo() {
     }
 
-    public DishTo(Integer id, String name, float price) {
+    public DishTo(Integer id, String name, int price) {
         super(id);
         this.name = name;
         this.price = price;
@@ -25,11 +25,11 @@ public class DishTo extends BaseTo {
         this.name = name;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

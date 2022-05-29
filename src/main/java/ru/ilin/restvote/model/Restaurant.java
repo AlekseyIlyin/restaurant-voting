@@ -16,8 +16,7 @@ public class Restaurant extends AbstractNamedEntity implements HasId {
     }
 
     public Restaurant(Restaurant restaurant) {
-        this.id = restaurant.getId();
-        this.name = restaurant.getName();
+        super(restaurant.getId(), restaurant.getName());
     }
 
     public Restaurant(String name) {

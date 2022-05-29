@@ -27,7 +27,7 @@ public class MenuService {
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
-    @Cacheable({"menu", "date"})
+    @Cacheable("menu")
     public List<Menu> getAllByDate(LocalDate date) {
         return repository.getAllByDate(date);
     }

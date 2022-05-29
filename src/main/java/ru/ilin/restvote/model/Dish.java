@@ -20,12 +20,12 @@ public class Dish extends AbstractNamedEntity implements HasId {
 
     @Column(name = "price")
     @NotBlank
-    private float price;
+    private int price;
 
     public Dish() {
     }
 
-    public Dish(Integer id, String name, float price) {
+    public Dish(Integer id, String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -45,11 +45,11 @@ public class Dish extends AbstractNamedEntity implements HasId {
         this.menu = menu;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

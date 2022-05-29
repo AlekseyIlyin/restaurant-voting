@@ -30,15 +30,15 @@ VALUES
 
 INSERT INTO dish (menu_id, name, price)
 VALUES
-    (100005, 'ice cream', 3.99),
-    (100005, 'Cinnamon waffle', 4.99),
-    (100005, 'Fruit trifle',  3.44),
-    (100006, 'Garlic Bread', 3.50),
-    (100006, 'Mozzarella salad', 4.50),
-    (100006, 'Olives', 3.99),
-    (100007, 'Жульен', 5.59),
-    (100007, 'Курник', 3.99),
-    (100007, 'Растягай', 2.11)
+    (100005, 'ice cream', 3),
+    (100005, 'Cinnamon waffle', 4),
+    (100005, 'Fruit trifle',  3),
+    (100006, 'Garlic Bread', 3),
+    (100006, 'Mozzarella salad', 4),
+    (100006, 'Olives', 3),
+    (100007, 'Жульен', 5),
+    (100007, 'Курник', 3),
+    (100007, 'Растягай', 2)
 ;
 
 INSERT INTO vote (user_id, rest_id)
